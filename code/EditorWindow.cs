@@ -106,18 +106,11 @@ public class EditorWindow : Window
 
 		var fd = new FileDialog( null );
 		fd.Title = "Select VPK File";
-		fd.SetNameFilter( ".vpk" );
+		//Set a vpk filter
 
 		if ( fd.Execute() )
 		{
-			try
-			{
-				Utility.Projects.TryAddFromFile( fd.SelectedFile );
-			}
-			catch ( Exception ex )
-			{
-				Log.Warning( ex, $"Couldn't add project from disk: {ex.Message}" );
-			}
+			Log.Info( $"File Selected: {fd.SelectedFile}" );
 		}
 	}
 
@@ -127,18 +120,11 @@ public class EditorWindow : Window
 
 		var fd = new FileDialog( null );
 		fd.Title = "Open Scene";
-		fd.SetNameFilter( ".sfmdx" );
+		//Set a scene filter
 
 		if ( fd.Execute() )
 		{
-			try
-			{
-				Utility.Projects.TryAddFromFile( fd.SelectedFile );
-			}
-			catch ( Exception ex )
-			{
-				Log.Warning( ex, $"Couldn't add project from disk: {ex.Message}" );
-			}
+			Log.Info( $"File Selected: {fd.SelectedFile}" );
 		}
 	}
 
