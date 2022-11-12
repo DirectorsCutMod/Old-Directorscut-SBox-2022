@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using Tools;
+using static Tools.Utility;
 
 // - SFMDX -
 // Source Filmmaker in S&box
@@ -100,14 +101,52 @@ public class EditorWindow : Window
 
     public void LoadMap()
     {
-        // Pop up asset browser and filter by map
-    }
+		// This is a placeholder for now until I figure out how the asset browser works.
+		// Pop up asset browser and filter by map
+
+		var fd = new FileDialog( null );
+		fd.Title = "Select VPK File";
+		fd.SetNameFilter( ".vpk" );
+
+		if ( fd.Execute() )
+		{
+			try
+			{
+				Utility.Projects.TryAddFromFile( fd.SelectedFile );
+			}
+			catch ( Exception ex )
+			{
+				Log.Warning( ex, $"Couldn't add project from disk: {ex.Message}" );
+			}
+		}
+	}
+
+	public void OpenScene()
+	{
+		// This is a placeholder for now until I figure out how the asset browser works.
+
+		var fd = new FileDialog( null );
+		fd.Title = "Open Scene";
+		fd.SetNameFilter( ".sfmdx" );
+
+		if ( fd.Execute() )
+		{
+			try
+			{
+				Utility.Projects.TryAddFromFile( fd.SelectedFile );
+			}
+			catch ( Exception ex )
+			{
+				Log.Warning( ex, $"Couldn't add project from disk: {ex.Message}" );
+			}
+		}
+	}
 
 	public void BuildMenu()
 	{
         // Top level menus (non-functional)
 		Menu fileMenu = MenuBar.AddMenu( "File" );
-		fileMenu.AddOption( "Open" );
+		fileMenu.AddOption( "Open" ).Triggered += () => OpenScene();
 		fileMenu.AddOption( "Save" );
         fileMenu.AddOption( "Save As" );
         fileMenu.AddOption( "Load Map" ).Triggered += () => LoadMap();
